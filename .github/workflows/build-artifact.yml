@@ -22,10 +22,7 @@ jobs:
     - name: Build with Maven
       run: mvn -B package -DskipTests
     - name: Upload JAR
-        #This uploads artifacts from your workflow allowing you to share data between jobs and store data once a workflow is complete.
-        uses: actions/upload-artifact@v3
-        with:
-          #Set artifact name
-          name: artifact
-          #From this path
-          path: target/github-action-demo1-*.jar
+      uses: actions/upload-artifact@v3
+      with:
+        name: artifact
+        path: target/github-action-demo1-*.jar
