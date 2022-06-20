@@ -30,6 +30,11 @@ public class ProductsController {
 		return productRepository.findById(id).orElse(null);
 	}
 
+	@GetMapping(path = "{name}")
+	public Product getProductByName(@PathVariable(name = "name") String name) {
+		return productRepository.findByName(name).orElse(null);
+	}
+
 	@PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
 	public Product saveProduct(@RequestBody Product productToSave) {
 		return productRepository.save(productToSave);
