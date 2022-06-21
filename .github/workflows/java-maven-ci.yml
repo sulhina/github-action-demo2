@@ -9,7 +9,7 @@ on:
     types: [opened, synchronize, reopened]
 
 jobs:
-  build:
+  unit-tests:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v3
@@ -24,7 +24,7 @@ jobs:
       
   sonar:
     runs-on: ubuntu-latest
-    needs: build
+    needs: unit-tests
     name: SonarCloud analysis
     steps:
     - uses: actions/checkout@v3
