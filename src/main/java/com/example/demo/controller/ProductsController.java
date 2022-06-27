@@ -1,7 +1,10 @@
 package com.example.demo.controller;
 
+import java.util.List;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -18,21 +21,18 @@ import com.example.demo.repository.ProductRepository;
 @RequestMapping(path = "/api/products/")
 public class ProductsController {
 	
+	@Autowired
 	private ProductRepository productRepository;
 	private Logger LOG = LoggerFactory.getLogger(ProductsController.class);
-	
-	public void productRepository(ProductRepository productRepository) {
-		this.productRepository = productRepository;
+
+	@GetMapping
+	public List<Product> getAllProduct() {
+		return productRepository.findAll();
 	}
-	
+
 	@GetMapping(path = "{id}")
 	public Product getProduct(@PathVariable(name = "id") String id) {
 		return productRepository.findById(id).orElse(null);
-	}
-
-	@GetMapping(path = "{name}")
-	public Product getProductByName(@PathVariable(name = "name") String name) {
-		return productRepository.findByName(name).orElse(null);
 	}
 
 	@PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
