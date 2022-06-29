@@ -2,6 +2,10 @@ name: Deploy to Elastic Beanstalk
 
 on:
   workflow_dispatch:
+    inputs:
+      tag:
+        required: true
+        description: Git Tag to be released
 
 jobs:
   deploy:
@@ -9,6 +13,13 @@ jobs:
     steps:
       - name: Checkout source code
         uses: actions/checkout@v3
+
+      - name: Update Dockerrun.aws.json with correct tag/version
+        uses: jossef/action-set-json-field@v2
+        with:
+          file: Dockerrun.aws.json
+          field: Image.Name
+          value: ${{ inputs.tag }}
 
       - name: Deploy to EB
         uses: einaregilsson/beanstalk-deploy@v20
