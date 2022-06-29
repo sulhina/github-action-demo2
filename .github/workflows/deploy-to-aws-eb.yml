@@ -6,6 +6,23 @@ on:
       tag:
         required: true
         description: Git Tag to be released
+      aws-eb-app:
+        description: 'AWS Elastic Beanstalk application'     
+        required: true
+        type: choice
+        options:
+        - products-demo
+        - customer2
+        - customer3
+      aws-eb-environment:
+        description: 'AWS Elastic Beanstalk environment'     
+        required: true
+        type: choice
+        options:
+        - Productsdemo-env
+        - dev
+        - stage
+        - validation
 
 jobs:
   deploy:
@@ -29,8 +46,8 @@ jobs:
           aws_access_key: ${{ secrets.AWS_ACCESS_KEY_ID }}
           aws_secret_key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           use_existing_version_if_available: false
-          application_name: products-demo
-          environment_name: Productsdemo-env
+          application_name: ${{ inputs.aws-eb-app }}
+          environment_name: ${{ inputs.aws-eb-environment }}
           version_label: ${{github.SHA}}
           region: eu-central-1
           deployment_package: Dockerrun.aws.json
