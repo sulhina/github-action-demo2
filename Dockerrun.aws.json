@@ -1,0 +1,13 @@
+{
+    "AWSEBDockerrunVersion": "1",
+    "Image": {
+        "Name": "sulhina/products-demo:v0.1.0-alpha",
+        "Update": "true"
+    },
+    "Ports": [
+        {
+            "ContainerPort": "8081"
+        }
+    ],
+    "Logging": "/var/log/demo"
+}
