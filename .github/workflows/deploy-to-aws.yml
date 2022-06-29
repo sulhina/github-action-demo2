@@ -19,7 +19,7 @@ jobs:
         with:
           file: Dockerrun.aws.json
           field: Image.Name
-          value: ${{ inputs.tag }}
+          value: sulhina/products-demo:${{ inputs.tag }}
       
       - run: cat Dockerrun.aws.json
 
