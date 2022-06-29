@@ -22,12 +22,6 @@ jobs:
           username: ${{ secrets.DOCKER_USERNAME }}
           password: ${{ secrets.DOCKERHUB_TOKEN }}
       
-      - name: Extract metadata (tags, labels) for Docker
-        id: meta
-        uses: docker/metadata-action@v4
-        with:
-          images: sulhina/products-demo
-      
       - name: Build and push Docker image
         uses: docker/build-push-action@v3
         with:
