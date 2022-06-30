@@ -32,7 +32,7 @@ jobs:
         uses: actions/checkout@v3
 
       - name: Update docker-compose.yml with correct tag/version
-        run: sed -i 's/${DEMO_VERSION}/${{ inputs.tag }}/g' docker-compose.yml
+        run: sed -i 's/${DEMO_VERSION}/${{ inputs.tag }}/g;s/${SERVICE_PORT}/80/g' docker-compose.yml
 
       - run: cat docker-compose.yml
 
