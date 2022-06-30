@@ -1,0 +1,8 @@
+version: '3'
+
+services:
+  products-demo:
+    image: sulhina/products-demo:${DEMO_VERSION}
+    ports:
+      - "8081:8081"
+    restart: "no"
