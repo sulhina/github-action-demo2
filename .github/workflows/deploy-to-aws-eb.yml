@@ -31,23 +31,24 @@ jobs:
       - name: Checkout source code
         uses: actions/checkout@v3
 
-      - name: Update Dockerrun.aws.json with correct tag/version
-        uses: jossef/action-set-json-field@v2
+      - name: Find and Replace
+        uses: jacobtomlinson/gha-find-replace@v2
         with:
-          file: Dockerrun.aws.json
-          field: Image.Name
-          value: sulhina/products-demo:${{ inputs.tag }}
+          find: "${DEMO_VERSION}"
+          replace: "${{ inputs.tag }}"
+          regex: false
+          include: "docker-compose.yml"
       
-      - run: cat Dockerrun.aws.json
+      - run: cat docker-compose.yml
 
-      - name: Deploy to EB
-        uses: einaregilsson/beanstalk-deploy@v20
-        with:
-          aws_access_key: ${{ secrets.AWS_ACCESS_KEY_ID }}
-          aws_secret_key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-          use_existing_version_if_available: false
-          application_name: ${{ inputs.aws-eb-app }}
-          environment_name: ${{ inputs.aws-eb-environment }}
-          version_label: ${{github.SHA}}
-          region: eu-central-1
-          deployment_package: Dockerrun.aws.json
+#      - name: Deploy to EB
+#        uses: einaregilsson/beanstalk-deploy@v20
+#        with:
+#          aws_access_key: ${{ secrets.AWS_ACCESS_KEY_ID }}
+#          aws_secret_key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+#          use_existing_version_if_available: false
+#          application_name: ${{ inputs.aws-eb-app }}
+#          environment_name: ${{ inputs.aws-eb-environment }}
+#          version_label: ${{github.SHA}}
+#          region: eu-central-1
+#          deployment_package: Dockerrun.aws.json
