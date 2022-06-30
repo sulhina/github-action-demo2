@@ -32,14 +32,8 @@ jobs:
         uses: actions/checkout@v3
 
       - name: Find and Replace
-        run: sed 's/${DEMO_VERSION}/${{ inputs.tag }}/g' docker-compose.yml
-#        uses: jacobtomlinson/gha-find-replace@v2
-#        with:
-#          find: "${DEMO_VERSION}"
-#          replace: "${{ inputs.tag }}"
-#          regex: false
-#          include: "docker-compose.yml"
-      
+        run: sed -i 's/${DEMO_VERSION}/${{ inputs.tag }}/g' docker-compose.yml
+
       - run: cat docker-compose.yml
 
 #      - name: Deploy to EB
